@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  background-color: aquamarine;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.tallyslash {
+  font-size: 7rem;
+  font-family: Futura, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: cornsilk;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
