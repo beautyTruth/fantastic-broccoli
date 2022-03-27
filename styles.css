@@ -18,7 +18,7 @@ body {
   flex-direction: column;
 }
 
-.tallyslash {
+/* .tallyslash {
   font-size: 7rem;
   font-family: Futura, Arial, Helvetica, sans-serif;
   font-weight: 700;
@@ -27,4 +27,26 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+} */
+
+#icythein {
+  border: 0.3rem solid cornflowerblue;
+  width: 50rem;
+  height: 80rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0.2rem 0.2rem 2rem 0.2rem cornflowerblue;
+  /* max-width: 100%; */
+}
+
+img {
+  display: none;
+}
+
+#playerImage,
+#backgroundImage,
+#enemyImage {
+  display: none;
 }
