@@ -38,11 +38,15 @@ window.addEventListener("load", function () {
       this.width = 200;
       this.height = 200;
       this.x = 0;
-      this.y = 0;
+      this.y = this.gameHeight - this.height;
     }
     draw(context) {
       context.fillStyle = "cornflowerblue";
       context.fillRect(this.x, this.y, this.width, this.height);
+      context.drawImage();
+    }
+    update() {
+      this.x++;
     }
   }
 
@@ -58,7 +62,13 @@ window.addEventListener("load", function () {
   const player = new Player(canvas.width, canvas.height);
   player.draw(ctx);
 
-  function animate() {}
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    player.draw(ctx);
+    player.update();
+    requestAnimationFrame(animate);
+  }
+  animate();
 });
 
 // the meaning of life is to find your gift. The purpose of life is to give it away
