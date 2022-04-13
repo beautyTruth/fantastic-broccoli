@@ -10,7 +10,7 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  background-color: aquamarine;
+  background-color: mintcream;
 }
 
 body {
@@ -30,20 +30,20 @@ body {
 } */
 
 #icythein {
-  border: 0.3rem solid cornflowerblue;
+  border: 0.5rem solid aliceblue;
   /* width: 50rem;
   height: 80rem; */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0.2rem 0.2rem 2rem 0.2rem cornflowerblue;
+  box-shadow: 0.2rem 0.2rem 2rem 0.2rem aliceblue;
   /* max-width: 100%; */
 }
 
-img {
+/* img {
   display: none;
-}
+} */
 
 #playerImage,
 #backgroundImage,
