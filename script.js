@@ -3,6 +3,7 @@ window.addEventListener("load", function () {
   const ctx = canvas.getContext("2d");
   canvas.width = 800;
   canvas.height = 720;
+  let enemies = [];
 
   class InputHandler {
     constructor() {
@@ -149,14 +150,17 @@ window.addEventListener("load", function () {
     }
   }
 
-  function handleEnemies() {}
+  function handleEnemies() {
+    enemies.push(new Enemy(canvas.width, canvas.height));
+  }
 
   function displayStatusText() {}
 
   const input = new InputHandler();
   const player = new Player(canvas.width, canvas.height);
   const background = new Background(canvas.width, canvas.height);
-  const enemy1 = new Enemy(canvas.width, canvas.height);
+
+  // const enemy1 = new Enemy(canvas.width, canvas.height);
   // player.draw(ctx);
 
   function animate() {
@@ -165,8 +169,8 @@ window.addEventListener("load", function () {
     // background.update();
     player.draw(ctx);
     player.update(input);
-    enemy1.draw(ctx);
-    enemy1.update();
+    // enemy1.draw(ctx);
+    // enemy1.update();
     requestAnimationFrame(animate);
   }
   animate();
