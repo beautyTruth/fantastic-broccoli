@@ -48,8 +48,8 @@ window.addEventListener("load", function () {
       this.gravity = 1;
     }
     draw(context) {
-      context.fillStyle = "cornflowerblue";
-      context.fillRect(this.x, this.y, this.width, this.height);
+      // context.fillStyle = "cornflowerblue";
+      // context.fillRect(this.x, this.y, this.width, this.height);
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -131,6 +131,7 @@ window.addEventListener("load", function () {
       this.x = this.gameWidth;
       this.y = this.gameHeight - this.height;
       this.frameX = 0;
+      this.speed = 8;
     }
     draw(context) {
       context.drawImage(
@@ -146,12 +147,18 @@ window.addEventListener("load", function () {
       );
     }
     update() {
-      this.x--;
+      this.x -= this.speed;
     }
   }
 
-  enemies.push(new Enemy(canvas.width, canvas.height));
-  function handleEnemies() {
+  function handleEnemies(deltaTime) {
+    if (enemyTimer > enemyInterval + randomEnemyInterval) {
+      enemies.push(new Enemy(canvas.width, canvas.height));
+      randomEnemyInterval = Math.random() * 1000 + 500;
+      enemyTimer = 0;
+    } else {
+      enemyTimer += deltaTime;
+    }
     enemies.forEach((boobie) => {
       boobie.draw(ctx);
       boobie.update();
@@ -167,18 +174,24 @@ window.addEventListener("load", function () {
   // const enemy1 = new Enemy(canvas.width, canvas.height);
   // player.draw(ctx);
 
-  function animate() {
+  let lastTime = 0;
+  let enemyTimer = 0;
+  let enemyInterval = 1000;
+  let randomEnemyInterval = Math.random() * 1000 + 500;
+
+  function animate(timeStamp) {
+    const deltaTime = timeStamp - lastTime;
+    lastTime = timeStamp;
+    console.log(deltaTime);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     background.draw(ctx);
     // background.update();
     player.draw(ctx);
     player.update(input);
-    handleEnemies();
-    // enemy1.draw(ctx);
-    // enemy1.update();
+    handleEnemies(deltaTime);
     requestAnimationFrame(animate);
   }
-  animate();
+  animate(0);
 });
 
 // the meaning of life is to find your gift. The purpose of life is to give it away
