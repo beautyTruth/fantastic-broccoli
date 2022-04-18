@@ -150,8 +150,12 @@ window.addEventListener("load", function () {
     }
   }
 
+  enemies.push(new Enemy(canvas.width, canvas.height));
   function handleEnemies() {
-    enemies.push(new Enemy(canvas.width, canvas.height));
+    enemies.forEach((boobie) => {
+      boobie.draw(ctx);
+      boobie.update();
+    });
   }
 
   function displayStatusText() {}
@@ -169,6 +173,7 @@ window.addEventListener("load", function () {
     // background.update();
     player.draw(ctx);
     player.update(input);
+    handleEnemies();
     // enemy1.draw(ctx);
     // enemy1.update();
     requestAnimationFrame(animate);
