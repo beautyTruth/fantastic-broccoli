@@ -42,7 +42,11 @@ window.addEventListener("load", function () {
       this.y = this.gameHeight - this.height;
       this.image = document.getElementById("playerImage");
       this.frameX = 0;
+      this.maxFrame = 8;
       this.frameY = 0;
+      this.fps = 20;
+      this.frameTimer = 0;
+      this.frameInterval = 1000 / this.fps;
       this.speed = 0;
       this.vy = 0;
       this.gravity = 1;
@@ -62,7 +66,16 @@ window.addEventListener("load", function () {
         this.height
       );
     }
-    update(input) {
+    update(input, deltaTime) {
+      // this is the sprite animation
+      if (this.frameTimer > this.frameInterval) {
+        if (this.frameX >= this.maxFrame) this.frameX = 0;
+        else this.frameX++;
+        this.frameTimer = 0;
+      } else {
+        this.frameTimer += deltaTime;
+      }
+      // these are the controls of the sprite
       if (input.keys.indexOf("ArrowRight") > -1) {
         this.speed = 5;
       } else if (input.keys.indexOf("ArrowLeft") > -1) {
@@ -131,6 +144,10 @@ window.addEventListener("load", function () {
       this.x = this.gameWidth;
       this.y = this.gameHeight - this.height;
       this.frameX = 0;
+      this.maxFrame = 5;
+      this.fps = 20;
+      this.frameTimer = 0;
+      this.frameInterval = 1000 / this.fps;
       this.speed = 8;
     }
     draw(context) {
@@ -146,7 +163,15 @@ window.addEventListener("load", function () {
         this.height
       );
     }
-    update() {
+    update(deltaTime) {
+      if (this.frameTimer > this.frameInterval) {
+        if (this.frameX >= this.maxFrame) this.frameX = 0;
+        else this.frameX++;
+        this.frameTimer = 0;
+      } else {
+        this.frameTimer += deltaTime;
+      }
+
       this.x -= this.speed;
     }
   }
@@ -161,7 +186,7 @@ window.addEventListener("load", function () {
     }
     enemies.forEach((boobie) => {
       boobie.draw(ctx);
-      boobie.update();
+      boobie.update(deltaTime);
     });
   }
 
@@ -187,7 +212,7 @@ window.addEventListener("load", function () {
     background.draw(ctx);
     // background.update();
     player.draw(ctx);
-    player.update(input);
+    player.update(input, deltaTime);
     handleEnemies(deltaTime);
     requestAnimationFrame(animate);
   }
