@@ -5,6 +5,7 @@ window.addEventListener("load", function () {
   canvas.height = 720;
   let enemies = [];
   let score = 0;
+  let gameOver = false;
 
   class InputHandler {
     constructor() {
@@ -78,7 +79,16 @@ window.addEventListener("load", function () {
         this.height
       );
     }
-    update(input, deltaTime) {
+    update(input, deltaTime, enemies) {
+      // collision detection
+      enemies.forEach((puppyDawg) => {
+        const dx = puppyDawg.x - this.x;
+        const dy = puppyDawg.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < puppyDawg.width / 2 + this.width / 2) {
+          gameOver = true;
+        }
+      });
       // this is the sprite animation
       if (this.frameTimer > this.frameInterval) {
         if (this.frameX >= this.maxFrame) this.frameX = 0;
@@ -227,6 +237,22 @@ window.addEventListener("load", function () {
     context.fillText("Score: " + score, 20, 50);
     context.fillStyle = "papayawhip";
     context.fillText("Score: " + score, 22, 52);
+    if (gameOver) {
+      context.textAlign = "center";
+      context.font = "80px Helvetica";
+      context.fillStyle = "cornflowerblue";
+      context.fillText(
+        "You Suck!!!! " + score,
+        canvas.width / 2,
+        canvas.height / 2
+      );
+      context.fillStyle = "papayawhip";
+      context.fillText(
+        "You Suck!!!! " + score,
+        canvas.width / 2 + 2,
+        canvas.height / 2 + 2
+      );
+    }
   }
 
   const input = new InputHandler();
@@ -248,10 +274,10 @@ window.addEventListener("load", function () {
     background.draw(ctx);
     // background.update();
     player.draw(ctx);
-    player.update(input, deltaTime);
+    player.update(input, deltaTime, enemies);
     handleEnemies(deltaTime);
     displayStatusText(ctx);
-    requestAnimationFrame(animate);
+    if (!gameOver) requestAnimationFrame(animate);
   }
   animate(0);
 });
