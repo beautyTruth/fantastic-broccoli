@@ -155,6 +155,7 @@ window.addEventListener("load", function () {
       this.markedForDeath = false;
     }
     draw(context) {
+      context.strokeRect(this.x, this.y, this.width, this.height);
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -176,7 +177,10 @@ window.addEventListener("load", function () {
         this.frameTimer += deltaTime;
       }
       this.x -= this.speed;
-      if (this.x < 0 - this.width) this.markedForDeath = true;
+      if (this.x < 0 - this.width) {
+        this.markedForDeath = true;
+        score++;
+      }
     }
   }
 
@@ -197,9 +201,11 @@ window.addEventListener("load", function () {
   }
 
   function displayStatusText(context) {
-    context.fillStyle = "papayawhip";
     context.font = "40px Helvetica";
+    context.fillStyle = "cornflowerblue";
     context.fillText("Score: " + score, 20, 50);
+    context.fillStyle = "papayawhip";
+    context.fillText("Score: " + score, 22, 52);
   }
 
   const input = new InputHandler();
