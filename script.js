@@ -54,17 +54,21 @@ window.addEventListener("load", function () {
       this.gravity = 1;
     }
     draw(context) {
-      context.strokeStyle = "white";
-      context.strokeRect(this.x, this.y, this.width, this.height);
-      context.beginPath();
-      context.arc(
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        this.width / 2,
-        0,
-        Math.PI * 2
-      );
-      context.stroke();
+      // context.strokeStyle = "white";
+      // context.strokeRect(this.x, this.y, this.width, this.height);
+      // context.beginPath();
+      // context.arc(
+      //   this.x + this.width / 2,
+      //   this.y + this.height / 2,
+      //   this.width / 2,
+      //   0,
+      //   Math.PI * 2
+      // );
+      // context.stroke();
+      // context.strokeStyle = "aqua";
+      // context.beginPath();
+      // context.arc(this.x, this.y, this.width / 2, 0, Math.PI * 2);
+      // context.stroke();
       // context.fillStyle = "cornflowerblue";
       // context.fillRect(this.x, this.y, this.width, this.height);
       context.drawImage(
@@ -82,8 +86,10 @@ window.addEventListener("load", function () {
     update(input, deltaTime, enemies) {
       // collision detection
       enemies.forEach((puppyDawg) => {
-        const dx = puppyDawg.x - this.x;
-        const dy = puppyDawg.y - this.y;
+        const dx =
+          puppyDawg.x + puppyDawg.width / 2 - (this.x + this.width / 2);
+        const dy =
+          puppyDawg.y + puppyDawg.height / 2 - (this.y + this.height / 2);
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < puppyDawg.width / 2 + this.width / 2) {
           gameOver = true;
@@ -176,17 +182,21 @@ window.addEventListener("load", function () {
       this.markedForDeath = false;
     }
     draw(context) {
-      context.strokeStyle = "white";
-      context.strokeRect(this.x, this.y, this.width, this.height);
-      context.beginPath();
-      context.arc(
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        this.width / 2,
-        0,
-        Math.PI * 2
-      );
-      context.stroke();
+      // context.strokeStyle = "white";
+      // context.strokeRect(this.x, this.y, this.width, this.height);
+      // context.beginPath();
+      // context.arc(
+      //   this.x + this.width / 2,
+      //   this.y + this.height / 2,
+      //   this.width / 2,
+      //   0,
+      //   Math.PI * 2
+      // );
+      // context.stroke();
+      // context.strokeStyle = "aqua";
+      // context.beginPath();
+      // context.arc(this.x, this.y, this.width / 2, 0, Math.PI * 2);
+      // context.stroke();
       context.drawImage(
         this.image,
         this.frameX * this.width,
