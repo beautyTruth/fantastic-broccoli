@@ -6,6 +6,7 @@ window.addEventListener("load", function () {
   let enemies = [];
   let score = 0;
   let gameOver = false;
+  const fullScreenButton = document.querySelector("#fullScreenButton");
 
   class InputHandler {
     constructor() {
@@ -83,6 +84,17 @@ window.addEventListener("load", function () {
       this.maxFrame = 8;
     }
     draw(context) {
+      context.lineWidth = 5;
+      context.strokeStyle = "white";
+      context.beginPath();
+      context.arc(
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        this.width / 2,
+        0,
+        Math.PI * 2
+      );
+      context.stroke();
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -120,7 +132,11 @@ window.addEventListener("load", function () {
         this.speed = 5;
       } else if (input.keys.indexOf("ArrowLeft") > -1) {
         this.speed = -5;
-      } else if (input.keys.indexOf("ArrowUp") > -1 && this.onGround()) {
+      } else if (
+        (input.keys.indexOf("ArrowUp") > -1 ||
+          input.keys.indexOf("swipe up") > -1) &&
+        this.onGround()
+      ) {
         this.vy -= 32;
       } else {
         this.speed = 0;
@@ -208,6 +224,17 @@ window.addEventListener("load", function () {
         this.width,
         this.height
       );
+      context.lineWidth = 5;
+      context.strokeStyle = "white";
+      context.beginPath();
+      context.arc(
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        this.width / 2,
+        0,
+        Math.PI * 2
+      );
+      context.stroke();
     }
     update(deltaTime) {
       if (this.frameTimer > this.frameInterval) {
@@ -250,16 +277,16 @@ window.addEventListener("load", function () {
     context.fillText("Score: " + score, 22, 52);
     if (gameOver) {
       context.textAlign = "center";
-      context.font = "80px Helvetica";
+      context.font = "50px Helvetica";
       context.fillStyle = "papayawhip";
       context.fillText(
-        "Score: " + score + " ... press return",
+        "Score: " + score + " ... press return or swipe down",
         canvas.width / 2,
         canvas.height / 2
       );
       context.fillStyle = "tomato";
       context.fillText(
-        "Score: " + score + " ... press return",
+        "Score: " + score + " ... press return or swipe down",
         canvas.width / 2 + 2,
         canvas.height / 2 + 2
       );
@@ -274,6 +301,19 @@ window.addEventListener("load", function () {
     gameOver = false;
     animate(0);
   }
+
+  function toggleFullScreen() {
+    console.log(document.fullscreenElement);
+    if (!document.fullscreenElement) {
+      canvas.requestFullscreen().catch((err) => {
+        alert(`error, unable to enable full screen mode: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  fullScreenButton.addEventListener("click", toggleFullScreen);
 
   const input = new InputHandler();
   const player = new Player(canvas.width, canvas.height);
@@ -292,7 +332,7 @@ window.addEventListener("load", function () {
     lastTime = timeStamp;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     background.draw(ctx);
-    // background.update();
+    background.update();
     player.draw(ctx);
     player.update(input, deltaTime, enemies);
     handleEnemies(deltaTime);
