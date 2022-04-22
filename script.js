@@ -84,17 +84,17 @@ window.addEventListener("load", function () {
       this.maxFrame = 8;
     }
     draw(context) {
-      context.lineWidth = 5;
-      context.strokeStyle = "white";
-      context.beginPath();
-      context.arc(
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        this.width / 2,
-        0,
-        Math.PI * 2
-      );
-      context.stroke();
+      // context.lineWidth = 5;
+      // context.strokeStyle = "white";
+      // context.beginPath();
+      // context.arc(
+      //   this.x + this.width / 2,
+      //   this.y + this.height / 2 + 20,
+      //   this.width / 3,
+      //   0,
+      //   Math.PI * 2
+      // );
+      // context.stroke();
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -107,15 +107,16 @@ window.addEventListener("load", function () {
         this.height
       );
     }
+
     update(input, deltaTime, enemies) {
       // collision detection
       enemies.forEach((puppyDawg) => {
         const dx =
-          puppyDawg.x + puppyDawg.width / 2 - (this.x + this.width / 2);
+          puppyDawg.x + puppyDawg.width / 2 - 20 - (this.x + this.width / 2);
         const dy =
-          puppyDawg.y + puppyDawg.height / 2 - (this.y + this.height / 2);
+          puppyDawg.y + puppyDawg.height / 2 - (this.y + this.height / 2 + 20);
         const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < puppyDawg.width / 2 + this.width / 2) {
+        if (distance < puppyDawg.width / 3 + this.width / 3) {
           gameOver = true;
         }
       });
@@ -224,17 +225,17 @@ window.addEventListener("load", function () {
         this.width,
         this.height
       );
-      context.lineWidth = 5;
-      context.strokeStyle = "white";
-      context.beginPath();
-      context.arc(
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        this.width / 2,
-        0,
-        Math.PI * 2
-      );
-      context.stroke();
+      // context.lineWidth = 5;
+      // context.strokeStyle = "white";
+      // context.beginPath();
+      // context.arc(
+      //   this.x + this.width / 2 - 20,
+      //   this.y + this.height / 2,
+      //   this.width / 3,
+      //   0,
+      //   Math.PI * 2
+      // );
+      // context.stroke();
     }
     update(deltaTime) {
       if (this.frameTimer > this.frameInterval) {
