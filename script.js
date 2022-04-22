@@ -19,7 +19,7 @@ window.addEventListener("load", function () {
           this.keys.indexOf(e.key) === -1
         ) {
           this.keys.push(e.key);
-        }
+        } else if (e.key === "Enter" && gameOver) restartGame();
       });
       window.addEventListener("keyup", (e) => {
         if (
@@ -31,6 +31,15 @@ window.addEventListener("load", function () {
           this.keys.splice(this.keys.indexOf(e.key), 1);
         }
       });
+      window.addEventListener("touchstart", (e) => {
+        console.log("");
+      });
+      window.addEventListener("touchmove", (e) => {
+        console.log("");
+      });
+      window.addEventListener("touch", (e) => {
+        console.log("");
+      });
     }
   }
 
@@ -40,7 +49,7 @@ window.addEventListener("load", function () {
       this.gameHeight = gameHeight;
       this.width = 200;
       this.height = 200;
-      this.x = 0;
+      this.x = 100;
       this.y = this.gameHeight - this.height;
       this.image = document.getElementById("playerImage");
       this.frameX = 0;
@@ -52,6 +61,12 @@ window.addEventListener("load", function () {
       this.speed = 0;
       this.vy = 0;
       this.gravity = 1;
+    }
+    restart() {
+      this.x = 100;
+      this.y = this.gameHeight - this.height;
+      this.frameX = 0;
+      this.maxFrame = 8;
     }
     draw(context) {
       context.drawImage(
@@ -145,6 +160,9 @@ window.addEventListener("load", function () {
       this.x -= this.speed;
       if (this.x < 0 - this.width) this.x = 0;
     }
+    restart() {
+      this.x = 0;
+    }
   }
 
   class Enemy {
@@ -196,7 +214,7 @@ window.addEventListener("load", function () {
   function handleEnemies(deltaTime) {
     if (enemyTimer > enemyInterval + randomEnemyInterval) {
       enemies.push(new Enemy(canvas.width, canvas.height));
-      console.log(enemies);
+      // console.log(enemies);
       randomEnemyInterval = Math.random() * 1000 + 500;
       enemyTimer = 0;
     } else {
@@ -210,27 +228,37 @@ window.addEventListener("load", function () {
   }
 
   function displayStatusText(context) {
+    context.textAlign = "left";
     context.font = "40px Helvetica";
-    context.fillStyle = "cornflowerblue";
-    context.fillText("Score: " + score, 20, 50);
     context.fillStyle = "papayawhip";
+    context.fillText("Score: " + score, 20, 50);
+    context.fillStyle = "tomato";
     context.fillText("Score: " + score, 22, 52);
     if (gameOver) {
       context.textAlign = "center";
       context.font = "80px Helvetica";
-      context.fillStyle = "cornflowerblue";
+      context.fillStyle = "papayawhip";
       context.fillText(
-        "You Suck!!!! " + score,
+        "Score: " + score + " ... press return",
         canvas.width / 2,
         canvas.height / 2
       );
-      context.fillStyle = "papayawhip";
+      context.fillStyle = "tomato";
       context.fillText(
-        "You Suck!!!! " + score,
+        "Score: " + score + " ... press return",
         canvas.width / 2 + 2,
         canvas.height / 2 + 2
       );
     }
+  }
+
+  function restartGame() {
+    player.restart();
+    background.restart();
+    enemies = [];
+    score = 0;
+    gameOver = false;
+    animate(0);
   }
 
   const input = new InputHandler();
