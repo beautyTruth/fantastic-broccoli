@@ -1,7 +1,7 @@
 window.addEventListener("load", function () {
   const canvas = document.querySelector("#icythein");
   const ctx = canvas.getContext("2d");
-  canvas.width = 800;
+  canvas.width = 1400;
   canvas.height = 720;
   let enemies = [];
   let score = 0;
@@ -54,23 +54,6 @@ window.addEventListener("load", function () {
       this.gravity = 1;
     }
     draw(context) {
-      // context.strokeStyle = "white";
-      // context.strokeRect(this.x, this.y, this.width, this.height);
-      // context.beginPath();
-      // context.arc(
-      //   this.x + this.width / 2,
-      //   this.y + this.height / 2,
-      //   this.width / 2,
-      //   0,
-      //   Math.PI * 2
-      // );
-      // context.stroke();
-      // context.strokeStyle = "aqua";
-      // context.beginPath();
-      // context.arc(this.x, this.y, this.width / 2, 0, Math.PI * 2);
-      // context.stroke();
-      // context.fillStyle = "cornflowerblue";
-      // context.fillRect(this.x, this.y, this.width, this.height);
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -182,21 +165,6 @@ window.addEventListener("load", function () {
       this.markedForDeath = false;
     }
     draw(context) {
-      // context.strokeStyle = "white";
-      // context.strokeRect(this.x, this.y, this.width, this.height);
-      // context.beginPath();
-      // context.arc(
-      //   this.x + this.width / 2,
-      //   this.y + this.height / 2,
-      //   this.width / 2,
-      //   0,
-      //   Math.PI * 2
-      // );
-      // context.stroke();
-      // context.strokeStyle = "aqua";
-      // context.beginPath();
-      // context.arc(this.x, this.y, this.width / 2, 0, Math.PI * 2);
-      // context.stroke();
       context.drawImage(
         this.image,
         this.frameX * this.width,
