@@ -10,6 +10,8 @@ window.addEventListener("load", function () {
   class InputHandler {
     constructor() {
       this.keys = [];
+      this.touchY = "";
+      this.touchThreshold = 30;
       window.addEventListener("keydown", (e) => {
         if (
           (e.key === "ArrowDown" ||
@@ -32,13 +34,23 @@ window.addEventListener("load", function () {
         }
       });
       window.addEventListener("touchstart", (e) => {
-        console.log("");
+        this.touchY = e.changedTouches[0].pageY;
       });
       window.addEventListener("touchmove", (e) => {
-        console.log("");
+        const swipeDistance = e.changedTouches[0].pageY - this.touchY;
+        if (
+          swipeDistance < -this.touchThreshold &&
+          this.keys.indexOf("swipe up" === -1)
+        )
+          this.keys.push("swipe up");
+        else if (
+          swipeDistance > this.touchThreshold &&
+          this.keys.indexOf("swipe down" === -1)
+        )
+          this.keys.push("swipe down");
       });
-      window.addEventListener("touch", (e) => {
-        console.log("");
+      window.addEventListener("touchend", (e) => {
+        console.log(this.keys);
       });
     }
   }
