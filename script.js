@@ -315,6 +315,7 @@ window.addEventListener("load", function () {
   }
 
   fullScreenButton.addEventListener("click", toggleFullScreen);
+  fullScreenButton.addEventListener("touchstart", toggleFullScreen);
 
   const input = new InputHandler();
   const player = new Player(canvas.width, canvas.height);
